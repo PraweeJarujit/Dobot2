@@ -3,100 +3,219 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Dobot Drawing App</title>
+<title>Dobot Drawing App (Pro Theme)</title>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-  :root{
-    --bg1:#1a0033; --bg2:#330066; --accent:#ff0066; --muted:#a0a0a0;
-    --card: rgba(10,0,20,0.9);
+  /* ⭐️⭐️⭐️ ธีม Professional (Light Mode - Default) ⭐️⭐️⭐️ */
+  :root {
+    --bg1: #f8f9fa; /* Very light gray */
+    --bg2: #f8f9fa; /* Solid color */
+    --accent: #007bff; /* Professional Blue */
+    --muted: #6c757d; /* Muted text */
+    --card: #ffffff; /* White cards */
   }
-  *{box-sizing:border-box}
-  body{
-    font-family:'Chakra Petch',sans-serif;
-    margin:0; 
-    color:#FFFFFF; 
-    background:linear-gradient(135deg,var(--bg1),var(--bg2));
-    padding:20px; min-height:100vh;
+
+  * { box-sizing: border-box }
+  body {
+    /* ⭐️ ใช้ฟอนต์ระบบที่อ่านง่ายสำหรับเนื้อหาทั่วไป */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    color: #212529; /* Dark text */
+    background: var(--bg1);
+    padding: 20px;
+    min-height: 100vh;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
-  .app{
-    max-width:1100px; margin:12px auto; padding:22px; border-radius:16px;
-    background:var(--card); border:2px solid #330033; box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  .app {
+    max-width: 1100px; margin: 12px auto; padding: 22px; border-radius: 16px;
+    background: transparent; /* No app background */
+    border: none;
+    box-shadow: none;
   }
-  header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-  h1{font-family:'Press Start 2P',cursive;color:var(--accent); margin:0; font-size:20px; text-shadow:0 0 10px rgba(255,0,100,0.6)}
-  .subtitle{color:var(--muted); margin:0 0 8px 0; font-size:14px}
-  .controls{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-  button, select, input[type="file"], input[type="number"]{
-    padding:10px 14px; border-radius:12px; border:none; font-weight:600; cursor:pointer; background-color: #333; color: #fff;
+  
+  /* ⭐️ ใช้ฟอนต์ Chakra Petch สำหรับหัวเรื่องและปุ่ม */
+  h1, h3, button {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
   }
-  button:disabled { 
-    background-color: #404040; 
-    color: #aaa; 
-    cursor: not-allowed; 
+  
+  header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap }
+  h1 {
+    color: #111;
+    margin: 0; font-size: 24px;
+    text-shadow: none;
+  }
+  .subtitle, .small, label { color: var(--muted) }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center }
+
+  /* ⭐️ ปุ่มและ Input แบบ Professional */
+  button, select, input[type="file"], input[type="number"] {
+    padding: 10px 14px; border-radius: 10px; border: 1px solid #ced4da; font-weight: 600; cursor: pointer;
+    background-color: #f8f9fa;
+    color: #495057;
+    text-shadow: none; /* ลบเงาตัวอักษรทั้งหมด */
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  button {
+    background-color: #fff;
+    color: #333;
+  }
+  button:disabled {
+    background-color: #e9ecef;
+    color: #adb5bd;
+    border-color: #e9ecef;
+    cursor: not-allowed;
   }
   button.btn-small { padding: 5px 10px; font-size: 12px; }
-  .btn-primary{background:linear-gradient(45deg,#ff0066,#ff66cc); color:#fff}
-  .btn-secondary{background:linear-gradient(45deg,#3366ff,#6699ff); color:#fff}
-  .btn-danger{background:linear-gradient(45deg,#990000,#ff3333); color:#fff}
-  /* ⭐️ ปุ่ม Upload to PC (สีเขียว) */
-  .btn-success{background:linear-gradient(45deg,#00cc66,#66ff99); color:#003311}
   
-  .row{display:flex; gap:16px; margin-top:16px; flex-wrap:wrap}
-  .col{flex:1; min-width:260px}
-  .card{
-    padding:14px; border-radius:12px; background:rgba(20,0,40,0.6); border:1px solid #330033;
+  /* ⭐️ ปุ่มสีทึบ (Solid Colors) */
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff; border-color: #007bff;
   }
-  .status-box{padding:10px;border-radius:8px;margin-bottom:8px;font-weight:700}
-  .status-disconnected{background:#330000;color:#ff9999;border:1px solid #ff3333}
-  .status-connected{background:#003300;color:#99ff99;border:1px solid #33ff33}
-  .status-loading{background:#000033;color:#99b3ff;border:1px solid #3366ff}
-  .status-processing {background:#333300;color:#ffff99;border:1px solid #ffff33}
-  .status-drawing {background:#330033;color:#ff99ff;border:1px solid #ff33ff}
-  .status-paused {background:#003333;color:#99ffff;border:1px solid #33ffff}
-  .status-error {background:#330000;color:#ff9999;border:1px solid #ff3333}
-  .status-idle {background:#003300;color:#99ff99;border:1px solid #33ff33}
+  .btn-secondary {
+    background-color: #6c757d;
+    color: #fff; border-color: #6c757d;
+  }
+  .btn-danger {
+    background-color: #dc3545;
+    color: #fff; border-color: #dc3545;
+  }
+  .btn-success {
+    background-color: #28a745;
+    color: #fff; border-color: #28a745;
+  }
   
-  .progress-wrap{margin-top:12px}
-  .progress-container{height:18px;background:#220044;border-radius:12px;border:1px solid #330033;overflow:hidden}
-  .progress-bar{height:100%; width:0%; background:linear-gradient(90deg,#ff0066,#ff66cc); transition:width .25s ease}
-  .progress-meta{display:flex;justify-content:space-between; margin-top:6px; font-size:13px; color:var(--muted)}
-  .image-compare{display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; justify-content:center}
-  .image-box{background:rgba(10,0,30,0.5); padding:10px;border-radius:10px; border:1px solid #660099; min-width:170px; max-width:320px; text-align:center}
-  .image-box img{max-width:100%; border-radius:6px; display:block; margin:8px auto; border:2px solid #9933ff}
-  .log-box{
-    font-family:monospace; font-size:13px; max-height:220px; overflow:auto; padding:10px; border-radius:8px; 
-    background:rgba(20, 20, 20, 0.4); 
-    border:1px solid #330033; 
-    color:#FFFFFF; 
+  input[type="number"], input[type="file"] {
+      background-color: #fff;
   }
-  .log-line{padding:4px 0; border-bottom:1px dashed rgba(255,255,255,0.05)} 
-  .small{font-size:13px; color:var(--muted)}
-  .form-group{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .corner-inputs{ display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+
+  .row { display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap }
+  .col { flex: 1; min-width: 260px }
+  
+  /* ⭐️ การ์ดสีขาว "ลอย" */
+  .card {
+    padding: 20px; /* เพิ่ม padding */
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* เงาที่นุ่มนวล */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  
+  .status-box { padding: 10px; border-radius: 8px; margin-bottom: 8px; font-weight: 700; }
+  .status-disconnected { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+  .status-connected, .status-idle { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+  .status-loading, .status-processing { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+  .status-drawing { background: #e2d9f3; color: #495057; border: 1px solid #d6cadd; }
+  .status-paused { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+  .status-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+  .progress-wrap { margin-top: 12px }
+  .progress-container { height: 18px; background: #e9ecef; border-radius: 12px; border: 1px solid #dee2e6; overflow: hidden }
+  .progress-bar { height: 100%; width: 0%; background: var(--accent); transition: width .25s ease } /* ไม่มี Gradient */
+  .progress-meta { display: flex; justify-content: space-between; margin-top: 6px; font-size: 13px; color: var(--muted) }
+  
+  .image-compare { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; justify-content: center }
+  .image-box { background: #f8f9fa; padding: 10px; border-radius: 10px; border: 1px solid #e0e0e0; min-width: 170px; max-width: 320px; text-align: center }
+  .image-box img { max-width: 100%; border-radius: 6px; display: block; margin: 8px auto; border: 2px solid #ced4da }
+  .image-box-large { max-width: none; flex-grow: 1; }
+  .image-box-large img { max-height: 450px; object-fit: contain; }
+
+  .log-box {
+    font-family: monospace; font-size: 13px; max-height: 220px; overflow: auto; padding: 10px; border-radius: 8px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    color: #333;
+  }
+  .log-line { padding: 4px 0; border-bottom: 1px dashed rgba(0, 0, 0, 0.05) }
+  .form-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap }
+  .corner-inputs { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
   .corner-group { justify-content: space-between; }
   .corner-group label { min-width: 80px; }
-  label{font-size:13px; color:var(--muted)}
-  .toast{position:fixed; right:20px; bottom:20px; background:linear-gradient(45deg,#222, #440044); color:#fff; padding:12px 16px; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.6); display:none; z-index:9999}
-  .modal{position:fixed; inset:0; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; z-index:999; padding: 20px;}
-  .modal .modal-card{background:var(--card); padding:24px; border-radius:12px; max-width:760px; width:100%; border:1px solid #330033; max-height: 90vh; overflow-y: auto;}
-  .modal h2{margin-top:0;color:var(--accent)}
-  .modal h3{color:#99aaff; border-bottom: 1px solid #330033; padding-bottom: 8px;}
+  
+  .toast { position: fixed; right: 20px; bottom: 20px; background: #333; color: #fff; padding: 12px 16px; border-radius: 10px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); display: none; z-index: 9999 }
+  .modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); display: none; align-items: center; justify-content: center; z-index: 999; padding: 20px; }
+  .modal .modal-card { background: var(--card); padding: 24px; border-radius: 12px; max-width: 760px; width: 100%; border: 1px solid #e0e0e0; max-height: 90vh; overflow-y: auto; }
+  .modal h2 { margin-top: 0; color: var(--accent) }
+  .modal h3 { color: #333; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px; }
   .modal li { margin-bottom: 10px; }
-  footer{margin-top:18px; text-align:center; color:var(--muted); font-size:13px}
   
+  footer { margin-top: 18px; text-align: center; color: var(--muted); font-size: 13px }
+
   #processingStep2, #processingStep3 {
-    margin-top: 12px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    border: 1px dashed var(--accent);
+    margin-top: 12px; padding: 10px; background: rgba(0, 123, 255, 0.05);
+    border-radius: 8px; border: 1px dashed var(--accent);
   }
   
-  @media (max-width:760px){
-    header{flex-direction:column; align-items:flex-start}
-    .row{flex-direction:column}
+  input[type="file"]::file-selector-button {
+    padding: 8px 12px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer;
+    background: #e9ecef; color: #495057; text-shadow: none; margin-right: 10px;
   }
+
+  @media (max-width: 760px) {
+    header { flex-direction: column; align-items: flex-start }
+    .row { flex-direction: column }
+  }
+  /* ⭐️⭐️⭐️ จบธีม Professional ⭐️⭐️⭐️ */
+  
+
+  /* ⭐️⭐️⭐️ Dark Mode Overrides ⭐️⭐️⭐️ */
+  body.dark-mode {
+    --bg1: #121212;
+    --bg2: #121212;
+    --card: #1e1e1e;
+    --muted: #888;
+    color: #e0e0e0;
+  }
+  body.dark-mode .app { background: transparent; }
+  body.dark-mode h1, body.dark-mode h3 { color: #fff; }
+  body.dark-mode .card {
+    background: var(--card);
+    border: 1px solid #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  body.dark-mode button, 
+  body.dark-mode select, 
+  body.dark-mode input[type="file"], 
+  body.dark-mode input[type="number"] {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+  }
+  body.dark-mode button:disabled {
+    background-color: #2a2a2a;
+    color: #555;
+    border-color: #333;
+  }
+  body.dark-mode .btn-primary { background-color: #007bff; color: #fff; border-color: #007bff; }
+  body.dark-mode .btn-secondary { background-color: #5a5a5a; color: #fff; border-color: #5a5a5a; }
+  body.dark-mode .btn-danger { background-color: #dc3545; color: #fff; border-color: #dc3545; }
+  body.dark-mode .btn-success { background-color: #28a745; color: #fff; border-color: #28a745; }
+  
+  body.dark-mode .status-disconnected { background: #5a1d1d; color: #ffacac; border: 1px solid #dc3545; }
+  body.dark-mode .status-connected, body.dark-mode .status-idle { background: #003300; color: #99ff99; border: 1px solid #28a745; }
+  body.dark-mode .status-loading, body.dark-mode .status-processing { background: #003333; color: #99ffff; border: 1px solid #17a2b8; }
+  body.dark-mode .status-drawing { background: #330033; color: #ff99ff; border: 1px solid #ff00ff; }
+  body.dark-mode .status-paused { background: #333300; color: #ffff99; border: 1px solid #ffc107; }
+
+  body.dark-mode .progress-container { background: #2a2a2a; border: 1px solid #444; }
+  body.dark-mode .image-box { background: #2a2a2a; border: 1px solid #333; }
+  body.dark-mode .image-box img { border: 2px solid #444; }
+  body.dark-mode .log-box { background: #121212; border: 1px solid #333; color: #e0e0e0; }
+  body.dark-mode .log-line { border-bottom: 1px dashed rgba(255, 255, 255, 0.1); }
+  body.dark-mode .toast { background: #1e1e1e; color: #fff; border: 1px solid #333; }
+  body.dark-mode .modal { background: rgba(0, 0, 0, 0.7); }
+  body.dark-mode .modal .modal-card { background: var(--card); border: 1px solid #333; }
+  body.dark-mode .modal h2 { color: var(--accent); }
+  body.dark-mode .modal h3, body.dark-mode .modal li { color: #e0e0e0; }
+  body.dark-mode .modal h3 { border-bottom: 1px solid #333; }
+  body.dark-mode #processingStep2, body.dark-mode #processingStep3 { background: rgba(0, 123, 255, 0.1); }
+  body.dark-mode input[type="file"]::file-selector-button {
+    background: #333; color: #e0e0e0;
+  }
+  /* ⭐️⭐️⭐️ จบ Dark Mode ⭐️⭐️⭐️ */
 </style>
 </head>
 <body>
@@ -107,6 +226,7 @@
         <p class="subtitle">Convert images to line art for drawing with Dobot Magician</p>
       </div>
       <div style="margin-left:auto" class="controls">
+        <button id="themeToggleBtn" class="btn-secondary" style="width: 50px; font-family: sans-serif;">🌙</button>
         <button id="quickUploadBtn" class="btn-success">☁️ Upload to PC</button>
         <button id="helpBtn" class="btn-secondary">Help / QR</button>
       </div>
@@ -123,7 +243,7 @@
           <button id="disconnectBtn" class="btn-secondary" disabled>Disconnect</button>
         </div>
         
-        <div style="margin-top:10px; border-top: 1px solid #330033; padding-top: 10px;" class="form-group">
+        <div style="margin-top:10px; border-top: 1px solid #e0e0e0; padding-top: 10px;" class="form-group">
           <label class="small">Speed (%):</label>
           <input id="speedInput" type="number" min="1" max="100" value="50" style="width:80px">
           
@@ -207,11 +327,12 @@
         </div>
 
         <div class="image-compare">
-          <div class="image-box"><div class="small"><strong>Original</strong></div><img id="originalImagePreview" alt="Original" style="display:none"></div>
-          <div class="image-box"><div class="small"><strong>B&W (Processed)</strong></div><img id="lineartImagePreview" alt="B&W" style="display:none"></div>
-          <div class="image-box"><div class="small"><strong>Comparison / Vector</strong></div><img id="vectorImagePreview" alt="Vector" style="display:none"></div>
+          <div class="image-box image-box-large">
+            <div class="small"><strong>Comparison / Vector</strong></div>
+            <img id="vectorImagePreview" alt="Vector" style="display:none">
+          </div>
         </div>
-      </div>
+        </div>
       
       <div class="col card">
         <h3 style="margin:0 0 8px 0">Drawing Controls & Progress</h3>
@@ -227,7 +348,13 @@
             <div id="timeMeta" class="small">Elapsed: 0s | ETA: -</div>
           </div>
         </div>
-      </div>
+
+        <h4 style="margin:16px 0 8px 0; color:var(--muted); font-weight:normal;">Reference Images</h4>
+        <div class="image-compare" style="justify-content: space-around;">
+          <div class="image-box"><div class="small"><strong>Original</strong></div><img id="originalImagePreview" alt="Original" style="display:none"></div>
+          <div class="image-box"><div class="small"><strong>B&W (Processed)</strong></div><img id="lineartImagePreview" alt="B&W" style="display:none"></div>
+        </div>
+        </div>
     </div>
 
     <div class="row">
@@ -270,17 +397,17 @@
     <div class="modal-card">
       <h2>How to Use & Mobile Access</h2>
       
-      <div style="background:rgba(255,255,255,0.1); padding:15px; border-radius:8px; text-align:center; margin-bottom:20px;">
-          <h3 style="margin-top:0; color:#fff;">📲 Scan to Open on Mobile</h3>
+      <div style="background:rgba(0, 123, 255, 0.1); padding:15px; border-radius:8px; text-align:center; margin-bottom:20px;">
+          <h3 style="margin-top:0; color:#333;">📲 Scan to Open on Mobile</h3>
           <div id="qrcode" style="display:inline-block; background:#fff; padding:10px; border-radius:4px;"></div>
-          <p style="margin:10px 0 0 0; font-family:monospace; color:#66ff99;">
+          <p style="margin:10px 0 0 0; font-family:monospace; color:var(--accent);">
              http://{{ server_ip }}:{{ server_port }}
           </p>
           <p class="small">(Make sure your phone is on the same Wi-Fi)</p>
       </div>
 
       <h3>Basic Instructions</h3>
-      <ul style="color:#ddd;line-height:1.6; padding-left:20px">
+      <ul style="color:#333;line-height:1.6; padding-left:20px">
         <li><strong>Connect:</strong> Connect USB & press 'Connect Dobot'.</li>
         <li><strong>Calibrate:</strong> Move pen to corners & click 'Set'.</li>
         <li><strong>Process:</strong> Upload image -> Process -> Select Style.</li>
@@ -504,12 +631,12 @@ document.getElementById('doUploadBtn').addEventListener('click', async () => {
     const res = await apiPost('/quick_upload', form, true);
     if (res && res.status === 'success') {
         statusText.textContent = `✅ ${res.message}`;
-        statusText.style.color = '#66ff99';
+        statusText.style.color = '#155724';
         showToast('Upload complete!');
         addLog(`Mobile upload success: ${res.filenames.length} files`);
     } else {
         statusText.textContent = `❌ Failed: ${res ? res.message : 'Error'}`;
-        statusText.style.color = '#ff6666';
+        statusText.style.color = '#721c24';
     }
 });
 
@@ -801,6 +928,35 @@ document.getElementById('downloadLogBtn').addEventListener('click', downloadLog)
 // --- Initial State ---
 setStatus('disconnected', 'Disconnected');
 addLog('Application loaded. Please connect Dobot to begin.');
+
+
+// --- ⭐️ Dark Mode Toggle Logic ⭐️ ---
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const currentTheme = localStorage.getItem('theme');
+
+// On page load, check saved theme
+if (currentTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeToggleBtn.textContent = '☀️';
+} else {
+    themeToggleBtn.textContent = '🌙';
+}
+
+// Add click event listener
+themeToggleBtn.addEventListener('click', () => {
+    if (document.body.classList.contains('dark-mode')) {
+        // Switch to Light Mode
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+        themeToggleBtn.textContent = '🌙';
+    } else {
+        // Switch to Dark Mode
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        themeToggleBtn.textContent = '☀️';
+    }
+});
+// --- ⭐️ End of Dark Mode Logic ⭐️ ---
 </script>
 </body>
 </html>
